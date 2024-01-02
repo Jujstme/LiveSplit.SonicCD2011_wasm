@@ -24,14 +24,14 @@ jobs:
 
       - name: Build
         run: |
-          cargo b --release
+          cargo +nightly build -Z build-std=core,panic_abort,compiler_builtins -Z build-std-features=panic_immediate_abort --release
 
       - name: Release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v1
         with:
           files: target/wasm32-unknown-unknown/release/livesplit_soniccd2011.wasm
-          name: Latest
+          name: Latest release
           tag_name: latest
           body: This contains the latest version of the auto splitter.
 
@@ -62,6 +62,7 @@ jobs:
       - name: Install Rust
         uses: hecrj/setup-rust-action@v1
         with:
+          rust-version: nightly
           components: rustfmt
 
       - name: Run cargo fmt
