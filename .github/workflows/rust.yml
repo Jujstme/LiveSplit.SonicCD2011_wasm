@@ -27,7 +27,7 @@ jobs:
           cargo b --release
 
       - name: Release
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v1
         with:
           files: target/wasm32-unknown-unknown/release/livesplit_soniccd2011.wasm
@@ -45,6 +45,7 @@ jobs:
       - name: Install Rust
         uses: hecrj/setup-rust-action@v1
         with:
+          rust-version: nightly
           components: clippy
           targets: wasm32-unknown-unknown
 
